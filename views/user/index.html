@@ -1,0 +1,48 @@
+{% extends '../app.html' %}
+{% block title %} Users {% endblock %}
+{% block content %}
+    {% if status %}
+    <div class="alert alert-success">Success updating user data.</div>
+    {% endif %}
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Fullname</th>
+            <th scope="col">Address</th>
+            <th scope="col">Registered</th>
+            <th scope="col-2">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for detail in details %}
+        <tr>
+            <th scope="col">
+                <div>
+                    {{ detail.username }}
+                    <div class="text-muted text-sm-left">
+                        <small>Exp {{ detail.experience }}</small>
+                        <small>Lvl {{ detail.level }}</small>
+                    </div>
+                </div>
+            </th>
+            <th scope="col">
+                <div>
+                    {{ detail.fullname }}
+                    <div class="text-muted text-sm-left">
+                        <small class="text-muted">Cash {{ detail.cash }}</small>
+                    </div>
+                </div>
+            </th>
+            <th scope="col">{{ detail.address }}</th>
+            <th scope="col">{{ detail.registered }}</th>
+            <th scope="col-2">
+                <a href="edit/{{ detail.id }}"><button class="btn-outline-info btn text-center"><i class="far fa-edit" aria-hidden="true"></i></button></a>
+                <a href="portfolio/{{ detail.id }}"><button class="btn-outline-warning btn"><i class="far fa-portrait" aria-hidden="true"></i></button></a>
+                <a href="reksadana/{{ detail.id }}"><button class="btn-outline-success btn"><i class="far fa-edit" aria-hidden="true"></i></button></a>
+            </th>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends '../app.html' %}
+{% block title %}Portfolio{% endblock %}
+{% block content %}
+    <style>
+        a:hover {
+            text-decoration: none;
+        }
+    </style>
+    {% if status == 'success' %}
+    <div class="alert alert-success">Reksa Dana successfully purchased.</div>
+    {% elif status == 'failed' %}
+    <div class="alert alert-danger">You don't have enough cash.</div>
+    {% endif %}
+    {% if sell == 'success' %}
+    <div class="alert alert-success">Reksa Dana sold.</div>
+    {% endif %}
+    <div class="d-flex">
+        <div class="jumbotron bg-dark text-light py-4" style="width: 500px">
+            <h1 class="display-4">{{ detail.username }}</h1>
+            <p class="lead px-1"><small class="text-muted">Experience </small>{{ detail.experience }}</p>
+            <p class="lead px-1"><small class="text-muted">Level </small>{{ detail.level }}</p>
+            <p class="lead px-1"><small class="text-muted">Cash </small>{{ detail.cash }}</p>
+            {% if detail.portfolio_set.all %}
+            <a href="/reksadana/sellall"><button class="mb-3 btn btn-block btn-outline-danger">Sell All Reksa Dana</button></a>
+            {% endif %}
+            <a href="/reksadana/"><button class="mb-0 btn btn-block btn-outline-success">Buy Reksa Dana</button></a>
+        </div>
+        <div style="width: 1000px; white-space: nowrap; overflow-x: scroll; height: 300px">
+            {% for item in portfolio %}
+                <div class="card m-3 py-3 d-inline-block" style="width: 200px; height: 200px; display: grid; place-items: center">
+                    <div class="card-body" style="width: 200px">
+                        <h5 class="card-title text-truncate">{{ item.name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ item.number }} Reksa Dana</h6>
+                        <p class="card-text">Price Rp{{ item.price }}</p>
+                        <a href="/reksadana/sell/{{ item.id }}"><button class="btn btn-success btn-block">Sell</button></a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
